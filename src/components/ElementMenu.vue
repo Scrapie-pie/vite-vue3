@@ -7,26 +7,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import ElementMenuIcon from "@/components/ElementMenuIcon.vue";
-export default {
-  name: 'ElementMenu',
-  data() {
-    return {
-      isOpened: false,
-    }
-  },
-  methods: {
-    onClick(event) {
-      this.isOpened = !this.isOpened;
-      this.$emit('clicked', this.isOpened);
-    }
-  },
-  emits: ['clicked'],
-  components: {
-    ElementMenuIcon,
-  }
-}
+
+const emit = defineEmits(['clicked']);
+let isOpened = ref(false);
+const onClick = (event) => {
+  isOpened = !isOpened;
+  emit('clicked', isOpened);
+};
 </script>
 
 <style lang="scss">

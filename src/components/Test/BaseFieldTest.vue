@@ -12,12 +12,14 @@
             <BaseTextarea
                 v-if="type === 'textarea'"
                 v-bind="$attrs"
-                v-on="listeners"
+                :model-value="modelValue"
+                @update:model-value="modelValue = $event"
             />
             <BaseInput
                 v-else
                 v-bind="$attrs"
-                v-on="listeners"
+                :model-value="modelValue"
+                @update:model-value="modelValue = $event"
                 :type="type"
                 ref="input"
                 :placeholder="placeholderMod === 'default' ? placeholder : null"
@@ -51,7 +53,9 @@ export default {
       isFocused: false,
     }
   },
+  emits: ['update:modelValue'],
   props: {
+    modelValue: String,
     type: {
       type: String,
       default: 'text',
@@ -69,7 +73,7 @@ export default {
     classArray() {
       return [
         this.type === 'textarea' ? "field_textarea" : "field_input",
-        { "field_filled": this.value.length },
+        { "field_filled": this.modelValue.length },
         { "field_focused": this.isFocused },
         // this.placeholderMod === 'popup' ? 'field_popup' : ''
       ]
@@ -83,26 +87,33 @@ export default {
     isShowPlaceholder() {
       switch (this.placeholderMod) {
         case 'popup': return true;
-        case 'inline': return !this.value.length && !this.isFocused;
+        case 'inline': return !this.modelValue.length && !this.isFocused;
       }
     },
-    listeners() {
-      let vm = this;
-      return Object.assign({},
-          this.$listeners,
-          {
-            input(value) {
-              vm.value = value;
-              vm.$emit('input', value);
-            },
-            mounted(initValue) {
-              vm.value = initValue;
-            },
-            focus() { vm.isFocused = true },
-            blur() { vm.isFocused = false }
-          }
-      )
-    },
+    // listeners() {
+    //   let vm = this;
+    //   console.log(this.modelValue)
+    //   return Object.assign({},
+    //       this.$listeners,
+    //       {
+    //         input(value) {
+    //           console.log(vm.$listeners)
+    //           vm.value = value;
+    //           vm.$emit('input', value);
+    //         },
+    //         mounted(initValue) {
+    //           vm.value = initValue;
+    //         },
+    //         focus() { vm.isFocused = true },
+    //         blur() { vm.isFocused = false }
+    //       }
+    //   )
+    // },
+  },
+  watch: {
+    modelValue(newValue) {
+      console.log(newValue)
+    }
   },
   components: {
     BaseInput,

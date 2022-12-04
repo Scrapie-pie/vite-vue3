@@ -4,10 +4,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "BaseBlocks"
-}
+<script setup>
+
 </script>
 
 <style>

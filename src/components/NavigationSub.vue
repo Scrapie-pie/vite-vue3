@@ -5,6 +5,7 @@
         <span>SALE</span>
         <span>Акции</span>
         <span>Конкурс</span>
+        <router-link :to="{name:'ui'}">ui</router-link>
         <span>🎄Новый год</span>
       </nav>
       <nav class="navigation-sub__routes">
@@ -15,11 +16,8 @@
   </nav>
 </template>
 
-<script>
-export default {
-  name: 'NavigationSub',
-  components: {}
-}
+<script setup>
+
 </script>
 
 <style lang="scss">

@@ -1,18 +1,11 @@
 <template>
-  <div :class="className">
+  <div>
     <slot></slot>
   </div>
 </template>
 
-<script>
-export default {
-  name: "BaseBlock",
-  data() {
-    return {
-      className: '' //block
-    }
-  }
-}
+<script setup>
+
 </script>
 
 <style>

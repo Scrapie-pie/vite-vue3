@@ -1,59 +1,33 @@
 <template>
-  <button class="button" :class="classMod">
-    <BaseSvg v-if="hasIconLeft" :icon="computedIcon"/>
+  <button :class="classArray">
+    <BaseIcon v-if="iconLeft" :icon="iconLeft"/>
     <slot></slot>
-    <BaseSvg v-if="hasIconRight" :icon="computedIcon"/>
+    <BaseIcon v-if="iconRight" :icon="iconRight"/>
   </button>
 </template>
 
-<script>
-import BaseSvg from './BaseSvg.vue';
+<script setup>
+import { ref, computed } from "vue";
+import BaseIcon from "@/components/BaseIcon.vue";
 
-export default {
-  name: 'BaseButton',
-  props: {
-    mod: {
-      type: String,
-      validator: (value) => ['primary', 'secondary'].includes(value),
-      default: 'primary'
-    },
-    iconLeft: String,
-    iconRight: String,
-    sent: {
-      type: Boolean,
-      default: false
-    },
+const props = defineProps({
+  mod: {
+    type: String,
+    validator: (value) => ['primary', 'secondary'].includes(value),
+    default: 'primary'
   },
-  computed: {
-    classMod() {
-      return `button--${this.mod}`;
-    },
-    computedIcon() {
-      if (this.iconLeft) return this.iconLeft;
-      if (this.iconRight) return this.iconRight;
-    },
-    hasIconLeft() {
-      console.log(this.iconLeft)
-      return this.iconLeft;
-    },
-    hasIconRight() {
-      return this.iconRight;
-    },
+  iconLeft: String,
+  iconRight: String,
+});
 
-  },
-  mounted() {
-    console.log(this.iconLeft)
-  },
-  components: {
-    BaseSvg
-  }
-}
+const classArray = ref(['button']);
+if (props.mod) classArray.value.push(`button--${props.mod}`);
 </script>
 
 <style lang="scss">
 .button {
   $self: &;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;

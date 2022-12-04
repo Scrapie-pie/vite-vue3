@@ -14,18 +14,9 @@
   </BaseSection>
 </template>
 
-<script>
-import BaseImage from "@/components/BaseImage.vue";
+<script setup>
 import BlockActual from "@/components/BlockActual.vue";
 import BaseSection from "@/components/BaseSection.vue";
-export default {
-  name: 'SectionActual',
-  components: {
-    BaseSection,
-    BlockActual,
-    BaseImage
-  }
-}
 </script>
 
 <style lang="scss">

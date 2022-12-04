@@ -6,18 +6,11 @@
   />
 </template>
 
-<script>
-import BaseLabel from './BaseLabel.vue';
-export default {
-  name: "BaseTextarea",
-  inheritAttrs: false,
-  props: {
-    label: String,
-  },
-  components: {
-    BaseLabel
-  }
-}
+<script setup>
+const props = defineProps({
+  label: String
+});
+const emit = defineEmits(['input']);
 </script>
 
 <style lang="scss">

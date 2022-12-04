@@ -1,31 +1,17 @@
 <template>
-  <img v-if="!isBg" :src="src" :alt="alt" class="image">
-  <div v-else :style="{backgroundImage: src}" class="image" />
+  <img v-if="!isBg" :src="resolveSrc" :alt="alt" class="image">
+  <div v-else :style="{ backgroundImage: 'url(' + resolveSrc + ')' }" class="image" />
 </template>
 
-<script>
-
-export default {
-  name: 'BaseImage',
-  props: {
-    fileName: String,
-    alt: {
-      type: String,
-      default: '',
-    },
-    isBg: {
-      type: Boolean,
-      default: false,
-    }
-  },
-  computed: {
-    src() {
-      const src = '/src/assets/img/' + this.fileName;
-      return this.isBg ? 'url(' + src + ')' : src;
-    }
-  },
-  components: {}
-}
+<script setup>
+import { computed } from "vue";
+const props = defineProps({
+  //fileName: String,
+  alt: { type: String, default: '' },
+  isBg: { type: Boolean, default: false },
+  src: String,
+});
+const resolveSrc = computed(() => props.src); // dev | prod
 </script>
 
 <style lang="scss">

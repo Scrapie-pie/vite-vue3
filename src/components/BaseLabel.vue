@@ -9,12 +9,11 @@
   </label>
 </template>
 
-<script>
+<script setup>
+const props = defineProps({
+  name: String
+});
 export default {
-  name: "BaseLabel",
-  props: {
-    name: String
-  },
   inheritAttrs: false
 }
 </script>

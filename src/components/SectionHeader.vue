@@ -2,36 +2,23 @@
   <section class="section-header">
     <div class="section-header__container">
       <ElementMenu />
-      <BaseIcon icon="logo" />
+      <router-link to="/">
+        <BaseIcon icon="logo" />
+      </router-link>
+
       <InputSearch />
       <BlockHeaderIcons />
     </div>
   </section>
 </template>
 
-<script>
-import BaseContainer from './BaseContainer.vue';
+<script setup>
+import { ref } from 'vue'
 import ElementMenu from "@/components/ElementMenu.vue";
 import BlockHeaderIcons from "@/components/BlockHeaderIcons.vue";
 import BaseIcon from "@/components/BaseIcon.vue";
-import BaseFieldTest from "@/components/Test/BaseFieldTest.vue";
 import InputSearch from "@/components/InputSearch.vue";
-export default {
-  name: 'SectionHeader',
-  data() {
-    return {
-      searchQuery: ''
-    }
-  },
-  components: {
-    InputSearch,
-    BaseFieldTest,
-    BlockHeaderIcons,
-    ElementMenu,
-    BaseContainer,
-    BaseIcon
-  }
-}
+const searchQuery = ref('');
 </script>
 
 <style lang="scss">

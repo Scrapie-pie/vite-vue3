@@ -3,7 +3,7 @@
     <div class="input-search__wrapper">
       <div class="input-search__query" @click="onClick">
         <BaseIcon icon="search" class="input-search__icon-search"/>
-        <BaseInput type="text" placeholder="Поиск" ref="input"/>
+        <BaseInput v-model="value" type="text" placeholder="Поиск" ref="input"/>
       </div>
       <BaseIcon icon="close"/>
     </div>
@@ -11,22 +11,42 @@
 </template>
 
 <script>
+import { ref, watch, onMounted } from 'vue'
 import BaseSvg from './BaseSvg.vue';
 import BaseButton from './BaseButton.vue';
 import BaseContainer from './BaseContainer.vue';
 import BaseInput from "@/components/BaseInput.vue";
 import BaseFieldTest from "@/components/Test/BaseFieldTest.vue";
 import BaseIcon from "@/components/BaseIcon.vue";
+
+
+
+
 export default {
   name: 'InputSearch',
-  data() {
+  setup(props, { attrs, slots, emit, expose }) {
+    const input = ref(null);
+    const value = ref('1');
+    const onClick = (event) => input.value.focus()
+
+    watch(value, (newValue, oldValue) => {
+      console.log(newValue)
+    })
+
     return {
-      value: '',
+      value,
+      input,
+      onClick
     }
   },
   methods: {
-    onClick(event) {
-      this.$refs.input.focus()
+    // onClick(event) {
+    //   this.$refs.input.focus()
+    // }
+  },
+  watch: {
+    value(newValue, oldValue) {
+      console.log(newValue)
     }
   },
 

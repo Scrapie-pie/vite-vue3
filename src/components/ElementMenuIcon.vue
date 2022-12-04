@@ -1,35 +1,16 @@
 <template>
-  <div class="element-menu-icon" :class="{ 'element-menu-icon_opened': isOpened }" @click="onClick">
+  <div class="element-menu-icon" :class="{ 'element-menu-icon_opened': isOpened }" @click="">
     <span class="element-menu-icon__line"></span>
     <span class="element-menu-icon__line"></span>
     <span class="element-menu-icon__line"></span>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ElementMenuIcon',
-  data() {
-    return {
-      //isOpened: false,
-    }
-  },
-  props: {
-    isOpened: {
-      type: Boolean,
-      default: false,
-    }
-  },
-  methods: {
-    onClick(event) {
-      //console.log('qwe')
-      //this.isOpened = !this.isOpened;
-      //this.$emit('clicked', this.isOpened);
-    }
-  },
-  emits: ['open'],
-  components: {}
-}
+<script setup>
+const props = defineProps({
+  isOpened: { type: Boolean, default: false }
+});
+const emit = defineEmits(['open'])
 </script>
 
 <style lang="scss">

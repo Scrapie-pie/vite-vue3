@@ -1,6 +1,5 @@
 <template>
   <BaseSections mod="md">
-    <Logo></Logo>
     <SectionHero />
     <SectionActual />
     <SectionCategories />
@@ -13,10 +12,16 @@ import SectionHero from "@/components/SectionHero.vue";
 import SectionActual from "@/components/SectionActual.vue";
 import BaseSections from "@/components/BaseSections.vue";
 import SectionCategories from "@/components/SectionCategories.vue";
+import BaseButton from "@/components/BaseButton.vue";
+import TestCssModule from "@/components/TestCssModule.vue";
+import BaseImage from "@/components/BaseImage.vue";
 
 export default {
   name: 'Index',
   components: {
+    BaseImage,
+    TestCssModule,
+    BaseButton,
     SectionCategories,
     BaseSections,
     SectionActual,

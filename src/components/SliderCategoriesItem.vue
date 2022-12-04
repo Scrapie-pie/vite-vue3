@@ -8,14 +8,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import BaseImage from "@/components/BaseImage.vue";
-export default {
-  name: 'SliderCategoriesItem',
-  components: {
-    BaseImage
-  }
-}
 </script>
 
 <style lang="scss">

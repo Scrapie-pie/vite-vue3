@@ -7,20 +7,9 @@
   </div>
 </template>
 
-<script>
-import BlockActual from "@/components/BlockActual.vue";
-import BaseSection from "@/components/BaseSection.vue";
+<script setup>
 import SliderCategoriesTabs from "@/components/SliderCategoriesTabs.vue";
 import SliderCategoriesItem from "@/components/SliderCategoriesItem.vue";
-export default {
-  name: 'SliderCategories',
-  components: {
-    SliderCategoriesItem,
-    SliderCategoriesTabs,
-    BaseSection,
-    BlockActual,
-  }
-}
 </script>
 
 <style lang="scss">

@@ -1,56 +1,89 @@
 <template>
   <label class="base-checkbox">
-    <input type="checkbox" :checked="isChecked" :value="value" @change="updateInput"/>
+    <input type="checkbox" :checked="isChecked" :value="value" @change="updateModelValue"/>
     <span class="base-checkbox__checkmark"></span>
     <slot></slot>
   </label>
 </template>
 
-<script>
-export default {
-  name: 'BaseCheckbox',
-  model: {
-    prop: 'modelValue',
-    event: 'change'
-  },
-  props: {
-    "value": { type: String },
-    "modelValue": { default: "" },
-    "trueValue": { default: true },
-    "falseValue": { default: false }
-  },
-  computed: {
-    isChecked() {
-      if (this.modelValue instanceof Array) {
-        return this.modelValue.includes(this.value)
-      }
-      return this.modelValue === this.trueValue
+<script setup>
+import { computed } from "vue";
+
+const props = defineProps({
+  "value": { type: String },
+  "modelValue": { default: "" },
+  "trueValue": { default: true },
+  "falseValue": { default: false }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const isChecked = computed(() => {
+  return props.modelValue instanceof Array
+    ? props.modelValue.includes(props.value)
+    : props.modelValue === props.trueValue
+});
+
+const updateModelValue = (event) => {
+  let isChecked = event.target.checked
+  if (props.modelValue instanceof Array) {
+    let newValue = [...props.modelValue]
+    if (isChecked) {
+      newValue.push(props.value)
+    } else {
+      newValue.splice(newValue.indexOf(props.value), 1)
     }
-  },
-  methods: {
-    updateInput(event) {
-      let isChecked = event.target.checked
-      if (this.modelValue instanceof Array) {
-        let newValue = [...this.modelValue]
-        if (isChecked) {
-          newValue.push(this.value)
-        } else {
-          newValue.splice(newValue.indexOf(this.value), 1)
-        }
-        this.$emit('change', newValue)
-      } else {
-        this.$emit('change', isChecked ? this.trueValue : this.falseValue)
-      }
-    }
+    emit('update:modelValue', newValue)
+  } else {
+    emit('update:modelValue', isChecked ? props.trueValue : props.falseValue)
   }
 }
+
+// export default {
+//   name: 'BaseCheckbox',
+//   // model: {
+//   //   prop: 'modelValue',
+//   //   event: 'change'
+//   // },
+//   props: {
+//
+//   },
+//   emits: ['update:modelValue'],
+//   computed: {
+//     isChecked() {
+//       if (this.modelValue instanceof Array) {
+//         return this.modelValue.includes(this.value)
+//       }
+//       return this.modelValue === this.trueValue
+//     }
+//   },
+//   methods: {
+//     updateModelValue(event) {
+//       let isChecked = event.target.checked
+//       if (this.modelValue instanceof Array) {
+//         let newValue = [...this.modelValue]
+//         if (isChecked) {
+//           newValue.push(this.value)
+//         } else {
+//           newValue.splice(newValue.indexOf(this.value), 1)
+//         }
+//         this.$emit('update:modelValue', newValue)
+//       } else {
+//         this.$emit('update:modelValue', isChecked ? this.trueValue : this.falseValue)
+//       }
+//     }
+//   },
+//   updated() {
+//     //console.log('qwe')
+//   }
+// }
 </script>
 
 <style lang="scss">
 .base-checkbox {
-  display: flex;
+  display: inline-flex;
   position: relative;
-  padding-left: 25px;
+  //padding-left: 25px;
   cursor: pointer;
   user-select: none;
   input {
@@ -61,7 +94,8 @@ export default {
     width: 0;
   }
   &__checkmark {
-    position: absolute;
+    //position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     height: 15px;

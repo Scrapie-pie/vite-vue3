@@ -1,24 +1,19 @@
 <template>
   <div class="block-actual">
     <div class="block-actual__preview">
-      <BaseImage :file-name="imageFileName" class="block-actual__image"/>
+      <BaseImage :src="imageSrc" class="block-actual__image"/>
     </div>
-    <span class="block-actual__name">{{name}}</span>
+    <span class="block-actual__name">{{ name }}</span>
   </div>
 </template>
 
-<script>
+<script setup>
 import BaseImage from "@/components/BaseImage.vue";
-export default {
-  name: 'BlockActual',
-  props: {
-    imageFileName: String,
-    name: String
-  },
-  components: {
-    BaseImage
-  }
-}
+
+const props = defineProps({
+  name: String,
+  imageSrc: String,
+})
 </script>
 
 <style lang="scss">

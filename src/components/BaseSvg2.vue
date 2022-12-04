@@ -1,26 +1,17 @@
 <template>
-<!-- <i/> вынести в компонент baseIcon  -->
-  <i :class="`icon icon-${icon}`" :style="`--init-size: ${fontSize}`">
-    <InlineSvg
-      :src="`/src/assets/icons/${icon}.svg?raw`"
-      :width="relativeSize.width"
-      :height="relativeSize.height"
-      ref="icon"
-      @loaded="onSvgLoaded"
-    />
-  </i>
+  <InlineSvg
+    class="svg"
+    :src="`/src/assets/icons/${icon}.svg?raw`"
+    :width="relativeSize.width"
+    :height="relativeSize.height"
+    ref="icon"
+    @loaded="onSvgLoaded"
+  />
 </template>
 
 <script>
+//Переделать ли в скрипт сетап?
 import InlineSvg from 'vue-inline-svg';
-const capitalize = (string) => string[0].toUpperCase() + string.slice(1);
-const toComponentName = (name) => 'Icon' + name.split(/[-|_]/).map(chunk => capitalize(chunk)).join('');
-const modules = import.meta.glob('/src/assets/icons/*.svg')
-const iconAsyncComponents = {};
-for (const path in modules) {
-  const componentName = toComponentName(path.match(/\/([^\/]+?)\.svg$/)[1]);
-  iconAsyncComponents[componentName] = modules[path]
-}
 
 export default {
   name: 'BaseSvg2',
@@ -49,11 +40,8 @@ export default {
     initFontSize: [String]
   },
   computed: {
-    currentComponent() {
-      return toComponentName(this.icon);
-    },
     widthToHeight() {
-      return (this.originalSize.width / this.originalSize.height).toFixed(2);
+      return (parseFloat(this.originalSize.width) / parseFloat(this.originalSize.height)).toFixed(2);
     },
     relativeSize() {
       if (!this.isSvgLoaded) {
@@ -61,7 +49,6 @@ export default {
       }
       const width = this.growByHeight ? `${this.widthToHeight}em` : '1em';
       const height = this.growByHeight ? '1em' : `${1 / this.widthToHeight}em`;
-      console.log('1')
       return { width, height };
     },
     fontSize() {
@@ -73,7 +60,7 @@ export default {
   methods: {
     determineOriginalSize() {
       const viewBox = this.$refs.icon.$el.getAttribute('viewBox').split(' ').map(n => Number(n));
-      this.originalSize = { width: viewBox[2], height: viewBox[3] };
+      this.originalSize = { width: `${viewBox[2]}px`, height: `${viewBox[3]}px` };
     },
     recursivelyRemoveFill(el = this.$refs.icon.$el) {
       if (!el) return;
@@ -97,14 +84,14 @@ export default {
   },
 };
 
-
 </script>
 
 <style lang="scss">
-.icon {
-  display: flex;
+.svg {
+ // display: flex;
   vertical-align: middle;
-  font-size: var(--init-size);
+  //font-size: var(--init-size);
+  fill: currentColor;
 }
 
 </style>

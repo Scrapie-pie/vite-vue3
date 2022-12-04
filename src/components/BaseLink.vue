@@ -4,20 +4,11 @@
   </component>
 </template>
 
-<script>
-import BaseSvg from './BaseSvg.vue';
-export default {
-  name: "BaseLink",
-  props: {
-    tag:  { type: String, default: 'a' },
-    href: { type: String, default: '#' },
-    //isBlock: Boolean,
-    // icon: String,
-  },
-  components: {
-    BaseSvg
-  }
-}
+<script setup>
+const props = defineProps({
+  tag:  { type: String, default: 'a' },
+  href: { type: String, default: '#' },
+});
 </script>
 
 <style lang="scss">

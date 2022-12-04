@@ -1,6 +1,7 @@
 <template>
   <div class="page-ui">
     <BaseContainer>
+      <BaseButton>qwe</BaseButton>
       <BaseSections mod="md">
         <BaseH v-for="i of 6" :key="i" :level="i">Заголовок h{{i}}</BaseH>
         <br/>
@@ -16,7 +17,11 @@
 
           <!--        <BaseInput></BaseInput>-->
 
+          <BaseInput v-model="model"></BaseInput>
 
+          <BaseCheckbox v-model="checkboxData" value="3">qwe</BaseCheckbox>
+          <BaseCheckbox v-model="checkboxData" value="1">qwe</BaseCheckbox>
+          <BaseCheckbox v-model="checkboxData" value="2">qwe</BaseCheckbox>
           <BaseFieldTest v-model="formData.text" placeholder="Введите ваше имя">
             <template #left>
               <BaseIcon icon="logo" />
@@ -80,14 +85,18 @@ import BaseFlex from "@/components/BaseFlex.vue";
 import BaseInput from "@/components/BaseInput.vue";
 import BaseFieldTest from "@/components/Test/BaseFieldTest.vue";
 import BaseGrid from "@/components/BaseGrid.vue";
+import BaseCheckbox from "@/components/BaseCheckbox.vue";
+import BaseButton from "@/components/BaseButton.vue";
 
 export default {
   name: 'UI',
   data() {
     return {
+      model: 'qwe',
       formData: {
         text: ''
       },
+      checkboxData: [],
       cssVariables: {
         colors: getCSSVars('color')
       }
@@ -99,7 +108,17 @@ export default {
   mounted() {
 
   },
+  updated() {
+    console.log(this.checkboxData)
+  },
+  watch: {
+    checkboxData(newValue) {
+      console.log(newValue)
+    },
+  },
   components: {
+    BaseButton,
+    BaseCheckbox,
     BaseGrid,
     BaseFieldTest,
     BaseInput,

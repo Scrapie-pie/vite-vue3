@@ -1,36 +1,26 @@
 <template>
-  <i :class="`icon icon-${this.icon}`" :style="`--init-size: ${fontSize}`">
-    <component
-      :is="currentComponent"
+<!-- <i/> вынести в компонент baseIcon  -->
+  <i :class="`icon icon-${icon}`" :style="`--init-size: ${fontSize}`">
+    <InlineSvg
+      :src="`/src/assets/icons/${icon}.svg?raw`"
       :width="relativeSize.width"
       :height="relativeSize.height"
       ref="icon"
+      @loaded="onSvgLoaded"
     />
   </i>
 </template>
 
 <script>
-
+import InlineSvg from 'vue-inline-svg';
 const capitalize = (string) => string[0].toUpperCase() + string.slice(1);
 const toComponentName = (name) => 'Icon' + name.split(/[-|_]/).map(chunk => capitalize(chunk)).join('');
 const modules = import.meta.glob('/src/assets/icons/*.svg')
-//console.log(modules)
 const iconAsyncComponents = {};
 for (const path in modules) {
   const componentName = toComponentName(path.match(/\/([^\/]+?)\.svg$/)[1]);
-  iconAsyncComponents[componentName] = () => import(`${path}?import`);
+  iconAsyncComponents[componentName] = modules[path]
 }
-
-console.log(iconAsyncComponents)
-
-
-// const requireComponents = {};
-// const requireComponentContext = require.context('../assets/icons/', false, /\.svg$/i, 'lazy'); //lazy!
-// requireComponentContext.keys().forEach((fileName, index) => {
-//   const componentName = toComponentName(fileName.match(/\/(.+?)\.svg$/)[1]);
-//   const componentConfig = requireComponentContext(fileName);
-//   requireComponents[componentName] = () => componentConfig;
-// });
 
 export default {
   name: 'BaseSvg',
@@ -40,7 +30,7 @@ export default {
         width: null,
         height: null,
       },
-      onceUpdated: false,
+      isSvgLoaded: false,
     }
   },
   props: {
@@ -66,11 +56,12 @@ export default {
       return (this.originalSize.width / this.originalSize.height).toFixed(2);
     },
     relativeSize() {
-      if (!this.onceUpdated) {
+      if (!this.isSvgLoaded) {
         return this.originalSize;
       }
       const width = this.growByHeight ? `${this.widthToHeight}em` : '1em';
       const height = this.growByHeight ? '1em' : `${1 / this.widthToHeight}em`;
+      console.log('1')
       return { width, height };
     },
     fontSize() {
@@ -81,36 +72,28 @@ export default {
   },
   methods: {
     determineOriginalSize() {
-      const viewBox = this.$refs.icon.getAttribute('viewBox').split(' ').map(n => Number(n));
+      const viewBox = this.$refs.icon.$el.getAttribute('viewBox').split(' ').map(n => Number(n));
       this.originalSize = { width: viewBox[2], height: viewBox[3] };
     },
-    recursivelyRemoveFill(el = this.$refs.icon) {
+    recursivelyRemoveFill(el = this.$refs.icon.$el) {
       if (!el) return;
       el.removeAttribute('fill');
       [].forEach.call(el.children, child => {
         this.recursivelyRemoveFill(child);
       });
-    }
-  },
-  mounted() {
-    console.log(this.currentComponent)
-  },
-  updated() {
-    if (!this.onceUpdated) {
-      if (this.$refs.icon.nodeName === 'svg') {
+    },
+    onSvgLoaded(svgElement) {
+      if (svgElement.nodeName === 'svg') {
         this.determineOriginalSize();
         if (this.hasFill) {
           this.recursivelyRemoveFill();
         }
       }
-      this.onceUpdated = true;
-    } else {
-
+      this.isSvgLoaded = true;
     }
-
   },
   components: {
-    ...iconAsyncComponents
+    InlineSvg
   },
 };
 

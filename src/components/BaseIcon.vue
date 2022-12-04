@@ -1,11 +1,12 @@
 <template>
-  <BaseSvg2 v-bind="$attrs" :icon="icon" :init-font-size="fontSize" :class="classSub" />
+  <i :class="['icon', `icon-${icon}`, {classSub}]" :style="inlineSize">
+    <BaseSvg2 :icon="icon" />
+  </i>
 </template>
 
 <script>
 import BaseSvg from "@/components/BaseSvg.vue";
 import BaseSvg2 from "@/components/BaseSvg2.vue";
-import BaseSvg3 from "@/components/BaseSvg3.vue";
 export default {
   name: 'BaseIcon',
   inheritAttrs: false,
@@ -25,6 +26,9 @@ export default {
         close: {
           default: '12px',
         },
+        like: {
+          //default: '24px',
+        }
       }
     }
   },
@@ -50,18 +54,34 @@ export default {
     },
     classSub() {
       if (this.classMod) return `icon_${this.classMod}`;
+    },
+    inlineSize() {
+      if (this.fontSize) return `--init-size: ${this.fontSize}`
     }
   },
   methods: {
 
   },
-  mounted() {
-    console.log(this.fontSize)
-  },
+  // mounted() {
+  //   let cssClasses = Array.from(this.$el.classList);
+  //   console.log(this.icon)
+  //   console.log(cssClasses.filter(className => /icon-(\w|-)+/.test(className)).length)
+  //
+  //   function getStyle(className) {
+  //     var cssText = "";
+  //     var classes = document.styleSheets[0].rules || document.styleSheets[0].cssRules;
+  //     for (var x = 0; x < classes.length; x++) {
+  //       if (classes[x].selectorText == className) {
+  //         cssText += classes[x].cssText || classes[x].style.cssText;
+  //       }
+  //     }
+  //     return cssText;
+  //   }
+  //   console.log(getStyle('.icon-person'))
+  // },
   components: {
-    BaseSvg,
     BaseSvg2,
-    BaseSvg3,
+    BaseSvg,
   },
 };
 
@@ -70,9 +90,15 @@ export default {
 
 <style lang="scss">
 .icon {
-  svg {
-    fill: currentColor;
+  & {
+    &-logo {
+      font-size: 55px;
+    }
+    &-person {
+      font-size: 24px;
+    }
   }
+
   &_circle {
     width: 40px;
     height: 40px;

@@ -14,20 +14,10 @@
   </BaseSection>
 </template>
 
-<script>
-import BaseIconLabel from "@/components/BaseIconLabel.vue";
+<script setup>
 import BaseSection from "@/components/BaseSection.vue";
 import BaseIcon from "@/components/BaseIcon.vue";
 import BaseFlex from "@/components/BaseFlex.vue";
-export default {
-  name: 'SectionTop',
-  components: {
-    BaseFlex,
-    BaseIcon,
-    BaseSection,
-    BaseIconLabel,
-  }
-}
 </script>
 
 <style lang="scss">

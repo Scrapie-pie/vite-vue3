@@ -7,26 +7,10 @@
   </header>
 </template>
 
-<script>
-import BaseContainer from './BaseContainer.vue';
-import InputSearch from "@/components/InputSearch.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import BaseBlocks from "@/components/BaseBlocks.vue";
+<script setup>
 import SectionTop from "@/components/SectionTop.vue";
 import SectionHeader from "@/components/SectionHeader.vue";
 import BaseSections from "@/components/BaseSections.vue";
-export default {
-  name: 'TheHeader',
-  components: {
-    BaseSections,
-    SectionHeader,
-    BaseContainer,
-    InputSearch,
-    BaseButton,
-    SectionTop,
-    BaseBlocks
-  }
-}
 </script>
 
 <style lang="scss">

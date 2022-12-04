@@ -6,14 +6,8 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import BaseImage from "@/components/BaseImage.vue";
-export default {
-  name: 'SectionHero',
-  components: {
-    BaseImage
-  }
-}
 </script>
 
 <style lang="scss">

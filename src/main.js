@@ -1,20 +1,18 @@
 import {createApp} from 'vue';
-import {createRouter, createWebHashHistory} from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import App from './App.vue';
 import Index from './Index.vue';
 import UI from './UI.vue';
 //import './style.css'
 
 const routes = [
-  { path: "", component: Index },
-  { path: "/ui",  component: UI },
+  { path: "/", name: 'Home', component: Index },
+  { path: "/ui", name: 'ui', component: UI },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
-})
+});
 
-const vueApp = createApp(App)
-vueApp.use(router)
-vueApp.mount('#app')
+createApp(App).use(router).mount('#app');

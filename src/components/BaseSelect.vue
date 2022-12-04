@@ -11,7 +11,7 @@
   </BaseLabel>
 </template>
 
-<script>
+<script setup>
 import BaseLabel from './BaseLabel.vue';
 export default {
   name: "BaseSelect",

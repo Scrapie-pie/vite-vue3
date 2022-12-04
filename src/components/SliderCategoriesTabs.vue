@@ -7,18 +7,8 @@
   </div>
 </template>
 
-<script>
-import BaseImage from "@/components/BaseImage.vue";
-import BlockActual from "@/components/BlockActual.vue";
-import BaseSection from "@/components/BaseSection.vue";
-export default {
-  name: 'SliderCategoriesTabs',
-  components: {
-    BaseSection,
-    BlockActual,
-    BaseImage
-  }
-}
+<script setup>
+
 </script>
 
 <style lang="scss">
