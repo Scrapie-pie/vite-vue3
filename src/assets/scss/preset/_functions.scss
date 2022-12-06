@@ -131,6 +131,8 @@
 
 @function calc-responsive($min-size, $max-size, $min-vw: get-var(breakpoint, xs), $max-vw: get-var(container)) { // mb move defaults to to-responsive // ТУТ to-unit() в пиксели переводить
 
+  //add units, css-vars support
+
   @if not has-unit($min-size) { // нужно ли?
     $min-size: to-number($min-size, 'px');
   } @else {

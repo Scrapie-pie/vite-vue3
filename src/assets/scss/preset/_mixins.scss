@@ -84,6 +84,9 @@
   // or handle map differently
   //
   // add min-vw min-vw result unit
+
+  //add units, css-vars support
+
   @if type-of($css-map-or-prop) == 'string' {
     $property: $css-map-or-prop;
     $min-size: to-unit($min-size, 'px');
@@ -145,12 +148,12 @@
   $min-variable: get-var(font-size, h#{$level}_mobile);
 
   @if ($relative and $min-variable) {
-    // сделать чтобы работало без $min-variable тоже
     $min: to-unit($min-variable, 'px');
     $max: to-unit($max-variable, 'px');
     @include to-responsive(font-size, $min, $max);
   } @else {
-    font-size: $max-variable;
+    //font-size: $max-variable;
+    font-size: var(--font-size_h#{$level});
   }
 
 
