@@ -3,8 +3,8 @@
 @use "sass:map";
 //@use "sass:string";
 
-@import "_variables";
-@import "_functions";
+@import "variables";
+@import "_functions.scss";
 
 
 @mixin css-variables {
@@ -30,19 +30,13 @@
 @mixin font-face-props($path, $font, $weight-value, $weight-name, $ext, $italic: false) { // remove $path; mb replace on func
   $format: '';
 
-  @if $ext == 'woff' {
-    $format: 'woff';
-  } @else if $ext == 'woff2' {
-    $format: 'woff2';
-  } @else if $ext == 'ttf' {
-    $format: 'truetype';
-  } @else if $ext == 'otf' {
-    $format: 'opentype';
-  } @else if $ext == 'eot' {
-    $format: 'embedded-opentype'
-  } @else if $ext == 'svg' {
-    $format: 'svg';
-  }
+  @if $ext == 'woff'       { $format: 'woff' }
+  @else if $ext == 'woff2' { $format: 'woff2' }
+  @else if $ext == 'ttf'   { $format: 'truetype' }
+  @else if $ext == 'otf'   { $format: 'opentype' }
+  @else if $ext == 'eot'   { $format: 'embedded-opentype' }
+  @else if $ext == 'svg'   { $format: 'svg' }
+
 
   font-family: $font;
   font-display: auto;

@@ -1,4 +1,4 @@
-@import "_functions";
+@import "functions";
 
 $_fix-scroll: false;
 $_grid-fixed: true;
@@ -7,6 +7,9 @@ $_max-font: 15px;
 $variables: (
   container: 1460px,
   edge-padding: 15px,
+  font-family: (
+	Roboto: ("Roboto", sans-serif),
+  ),
   font-size: (
     base: $_max-font, // body
     h1: relative-unit(80px),

@@ -1,0 +1,75 @@
+@import "preset/mixins";
+@import "preset/tags";
+@import "_global-classes";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root { @include css-variables }
+
+html {
+  @include to-responsive(font-size, $_min-font, get-var(font-size, base), 320px, get-var(container));
+  font-family: var(--font-family_Roboto);
+}
+
+#app {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  header { flex-shrink: 0 }
+  main { flex-grow: 1 }
+  footer { flex-shrink: 0 }
+}
+
+.container,
+*[class$="_container"],
+*[class$="--container"],
+*[class$="__container"] {
+ @include container;
+}
+
+
+//.italic {
+//  font-style: italic;
+//}
+
+
+.global_font-size_h {
+  @for $i from 1 through 6 {
+    &#{$i} {
+      @include h($i, get-var(color, black), $weight: 700, $margin-bottom: 0);
+      line-height: 1.22em;
+    }
+  }
+}
+
+.global_font_color {
+  @each $key, $value in map-get($variables, color) {
+    &_#{$key} {
+      color: var(--color_#{$key});
+    }
+  }
+}
+
+//.global {
+//  &_font-size {
+//    @for $i from 1 through 6 {
+//      $color: get-var(color, black);
+//      $weight: 700;
+//      $line-height: 1.22em;
+//      //$margin-bottom: get-var(space, xs);
+//
+//      &_h#{$i} {
+//        @include h($i, $color, $weight: $weight, $margin-bottom: 0);
+//        line-height: $line-height;
+//      }
+//    }
+//
+//  }
+//  &_color {
+//    @each $key, $value in map-get($variables, color) {
+//      &_#{$key} {
+//        color: var(--color_#{$key});
+//      }
+//    }
+//  }
+//}
